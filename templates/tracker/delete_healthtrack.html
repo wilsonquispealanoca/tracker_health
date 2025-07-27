@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Delete{% endblock title %}
+
+{% block base_content %}
+	<form action="" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<h1>{{ track.id }}</h1>
+		<button type="submit" class="button danger">Yes, I want delete it!</button>
+	</form>
+{% endblock base_content %}

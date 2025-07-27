@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+.button {
+	@apply rounded-md px-5 p-2.5 uppercase text-sm font-semibold w-full cursor-pointer text-center;
+}
+
+.primary {
+	@apply bg-emerald-500 text-white hover:bg-emerald-700;
+}
+
+.secondary {
+	@apply bg-gray-50 text-gray-400 border border-gray-300;
+}
+
+.danger {
+	@apply border border-red-400 text-red-500 bg-red-100;
+}
+
+.input {
+	@apply border border-gray-300 rounded-md px-3 p-2 placeholder-gray-400 focus:outline-emerald-600 w-full;
+}
+
+.label-input{
+	@apply block text-sm my-1;
+}
+
+.container {
+	@apply w-[90%] mx-auto;
+}
+
+.nav {
+	@apply flex md:gap-12 lg:text-base md:flex-row flex-col justify-center text-sm gap-4 text-center;
+}
+
+.title {
+	@apply mb-6 font-semibold text-4xl;
+}
+
+.avatar {
+	@apply w-24 h-24 rounded-full;
+}

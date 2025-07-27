@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Create{% endblock title %}
+
+{% block base_content %}
+<div class="max-w-3xl mx-auto">
+	<form method="POST">
+	{% csrf_token %}
+    <!-- Exercise -->
+    <div class="mb-4">
+      <label class="block text-gray-700">{{ form.exercise_minutes.label }}</label>
+      {% render_field form.exercise_minutes class="input w-full mt-1" placeholder="Minutos de ejercicio" %}
+      {% for error in form.exercise_minutes.errors %}
+        <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+      {% endfor %}
+    </div>
+
+    <!-- Meditation -->
+    <div class="mb-4">
+      <label class="block text-gray-700">{{ form.meditation_minutes.label }}</label>
+      {% render_field form.meditation_minutes class="input w-full mt-1" placeholder="Minutos de meditación" %}
+      {% for error in form.meditation_minutes.errors %}
+        <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+      {% endfor %}
+    </div>
+    
+    <!-- Sleep -->
+    <div class="mb-4">
+      <label class="block text-gray-700">{{ form.sleep_hours.label }}</label>
+      {% render_field form.sleep_hours class="input w-full mt-1" placeholder="Horas de sueño" %}
+      {% for error in form.sleep_hours.errors %}
+        <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+      {% endfor %}
+    </div>
+	<button type="submit" class="button primary">Submit</button>
+</form>
+</div>
+{% endblock base_content %}

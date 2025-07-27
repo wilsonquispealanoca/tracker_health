@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block base_content %}
+	{% if user.is_authenticated %}
+		<h2 class="title">Bienvenido {{ user.first_name }}</h2>
+	{% else %}
+		<h2>Inicia sesión para continuar</h2>
+	{% endif %}
+	{% if trackers %}
+		<h2 class="title">Your Health Dashboard</h2>
+		<div class="flex md:flex-row flex-col gap-4 justify-center">
+			<div class="border border-gray-300 rounded-md">
+					<div class="py-6 px-4">
+						<h2 class="mb-4 font-semibold text-xl">Exercise Data</h2>
+						<div>
+							<canvas id="exercisesChart"></canvas>
+						</div>
+					</div>
+				</div>
+				<div class="border border-gray-300 rounded-md">
+					<div class="py-6 px-4">
+						<h2 class="mb-4 font-semibold text-xl">Meditation Data</h2>
+						<canvas id="meditationsChart"></canvas>
+					</div>
+				</div>
+				<div class="border border-gray-300 rounded-md">
+					<div class="py-6 px-4">
+						<h2 class="mb-4 font-semibold text-xl">Sleep Data</h2>
+						<canvas id="sleepsChart"></canvas>
+					</div>
+				</div>
+		</div>
+	{% else %}
+		<p>No hay datos</p>
+	{% endif %}
+{% endblock base_content %}
+
+{% block page_js %}
+	<script>
+		const labels = {{ labels | safe }};
+		const exercise_data = {{ exercise_data | safe }};
+		const meditation_data = {{ meditation_data | safe }};
+		const sleep_data = {{ sleep_data | safe }};
+
+		const exerciseCtx = document.getElementById('exercisesChart');
+
+		new Chart(exerciseCtx, {
+		    type: 'bar',
+		    data: {
+		      labels: labels,
+		      datasets: [{
+		        label: 'Exercise minutes',
+		        data: exercise_data,
+		        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+		        borderWidth: 1
+		      }]
+		    },
+		    options: {
+		      scales: {
+		        y: {
+		          beginAtZero: true
+		        }
+		      }
+		    }
+		});
+
+		const meditationCtx = document.getElementById('meditationsChart');
+
+		new Chart(meditationCtx, {
+		    type: 'bar',
+		    data: {
+		      labels: labels,
+		      datasets: [{
+		        label: 'Meditation minutes',
+		        data: meditation_data,
+		        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+		        borderWidth: 1
+		      }]
+		    },
+		    options: {
+		      scales: {
+		        y: {
+		          beginAtZero: true
+		        }
+		      }
+		    }
+		});
+
+		const sleepCtx = document.getElementById('sleepsChart');
+
+		new Chart(sleepCtx, {
+		    type: 'bar',
+		    data: {
+		      labels: labels,
+		      datasets: [{
+		        label: 'Sleep hours',
+		        data: sleep_data,
+		        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+		        borderWidth: 1
+		      }]
+		    },
+		    options: {
+		      scales: {
+		        y: {
+		          beginAtZero: true
+		        }
+		      }
+		    }
+		});
+
+	</script>
+{% endblock page_js %}

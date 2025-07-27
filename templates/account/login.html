@@ -1,0 +1,35 @@
+{% extends "account/base_auth.html" %}
+
+{% load widget_tweaks %}
+
+{% block auth_title %}Login{% endblock auth_title %}
+
+{% block auth_content %}
+<div class="max-w-xl mx-auto h-screen grid content-center">
+		<form method="POST" class="bg-emerald-900 p-6 rounded-md text-white">
+			<h1 class="title">Login</h1>
+			{% csrf_token %}
+			<p>Iniciar sesión con</p>
+			{% if SOCIALACCOUNT_ENABLED %}
+			<div class="button secondary flex justify-center mt-2">
+				{% include "svgs/google.svg" with class="w-6 h-6 mt-[-2px] mr-2" %}
+				{% include "socialaccount/snippets/provider_list.html" %}
+			</div>
+			{% endif %}
+			<div>
+				<label class="label-input" for="{{ form.login.id_for_label }}">Correo electrónico</label>
+				<div class="form-field">
+					{% render_field form.login class="input" %}
+				</div>
+			</div>
+			<div>
+				<label class="label-input" for="{{ form.login.id_for_label }}">Contraseña</label>
+				<div class="form-field">
+					{% render_field form.password class="input" %}
+				</div>
+			</div>
+			<button type="submit" class="button primary mt-4">Iniciar Sesión</button>
+			<p class="text-white text-center">¿No tienes cuenta? <a href="{% url 'account_signup' %}" class="font-semibold hover:underline">Regístrate</a></p>
+		</form>
+	</div>
+{% endblock auth_content %}

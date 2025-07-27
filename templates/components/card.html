@@ -1,0 +1,11 @@
+{% block component_card %}
+<div class="shadow-xl p-4 rounded-md">
+				{{ tracker.date }}
+				<p>Exercice: {{ tracker.exercise_minutes }} minute{{ tracker.exercise_minutes | pluralize }}</p>
+				<p>Meditation: {{ tracker.meditation_minutes }} minute{{ tracker.meditation_minutes | pluralize }}</p>
+				<div class="flex gap-4 mt-4">
+					<a href="{% url 'update_health_data' tracker.id %}" class="button secondary">Edit</a>
+					<a href="{% url 'delete_health_data' tracker.id %}" class="button danger">Delete</a>
+				</div>
+			</div>
+{% endblock component_card %}

@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}{% endblock title %} | Tracker Health</title>
+	<link href="{% static 'output.css' %}" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+	<header class="bg-teal-700 py-8 uppercase font-semibold text-white mb-10">
+		<h1 class="text-xl md:text-4xl text-center mb-8">Health Tracker Dashboard</h1>
+		<nav class="nav container">
+			<a href="{% url 'home' %}">Home</a>
+			<a href="{% url 'register' %}">Enter Health Data</a>
+			<a href="{% url 'dashboard' %}">Dashboard</a>
+			{% if user.is_authenticated %}
+				<a href="{% url 'update_profile' user.id %}">Mi perfil</a>
+				<form action="{% url 'logout' %}" method="post">
+				    {% csrf_token %}
+				    <button type="submit" class="cursor-pointer">CERRAR SESIÓN</button>
+				</form>
+			{% else %}
+				<form action="{% url 'login' %}" method="post">
+				    {% csrf_token %}
+				    <button type="submit" class="cursor-pointer">INICIAR SESIÓN</button>
+				</form>
+			{% endif %}
+		</nav>
+	</header>
+	<main class="container">
+		{% block base_content %}
+		{% endblock base_content %}
+	</main>
+	<footer class="container text-center mt-10">
+		<p>© <span id="yearFooter"></span> Health Tracker Dashboard</p>
+	</footer>
+	<script>
+  		document.getElementById('yearFooter').textContent = new Date().getFullYear();
+	</script>
+	{% block page_js %}
+
+	{% endblock page_js %}
+</body>
+</html>
